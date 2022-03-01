@@ -1,11 +1,13 @@
-
+---
+layout: page
+title: User Guide
+---
 
 *Networkers* is a **desktop app for managing contacts for networks, 
 optimised for use via a Command Line Interface** (CLI) 
 while still having the benefits of a Graphical User Interface (GUI). 
 If you can type fast, Networkers can get your contact management tasks 
 done faster than traditional GUI apps.
-
 
 - **Features (v1.2)**
   1. Add a client
@@ -15,36 +17,9 @@ done faster than traditional GUI apps.
   5. View all clients and associated procedures in the client
 - **Command Summary**
 
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
-
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-
-* If a parameter is expected only once in the command but you specified it multiple times, only the last occurrence of the parameter will be taken.<br>
-  e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
-
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
-
-</div>
-
 
 ### Add a Client: `addClient`
 
@@ -54,124 +29,103 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
  - `addClient` refers to the command of adding a client to the address book
  - Mandatory details include a name, phone_number and an address for the client
 
-[comment]: <> (<div markdown="span" class="alert alert-primary">:bulb: **Tip:**)
-
-[comment]: <> (A person can have any number of tags &#40;including 0&#41;)
-
-[comment]: <> (</div>)
-
 Examples:
 
 Non GUI format:
--  User: `addClient n/Apple Inc p/9XXXXXXX a/apple road`
-   
-   Terminal returns: `Added client apple inc to the tasklist`
+- User: `addClient n/Apple Inc p/9XXXXXXX a/apple road`
+  - Terminal returns: `Added client apple inc to the tasklist`
 
+GUI format: ![Ui](images/addClient.png)
 
-GUI format:
-    ![Ui](images/addClient.png)
+### Deleting a client: `deleteClient`
 
+Deletes a specified client from  the contact book.
 
-### Listing all persons : `list`
+Format: `deleteClient <INDEX>`
 
-Shows a list of all persons in the address book.
+* Deletes the client at the specified INDEX.
+* The index refers to the index number shown in the displayed contact list.
+* The index must be a positive integer 1, 2, 3, …
 
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+User must then type `confirm` in order to delete the client. Users may type cancel instead to return to the main command line.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+Non-GUI Format:
+* `deleteClient 1` will trigger an attempt to delete the 1st client in the contact list .
+* Users must type `confirm` to delete, or cancel to return to the main command line.
 
-Finds persons whose names contain any of the given keywords.
+GUI Format:
+![list](images/deleteClient.png)
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+### Add a Procedure to a Client: `addProc`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Adds a specified procedure to a specified client list in the contact book.
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+**Format:** `addProc <Client Index> <Procedure>`
+* `addProc` refers to the command of adding a procedure to the client at the specified Index.
+* `<Client Index>` refers to the index number shown in the displayed client list. The index **must be** a positive integer 1, 2, 3, …​
+* `<Procedure>` refers to the tasks or problems that need to be addressed in the future visits to the client’s business sight.
+  * Note that a client’s list of procedures is a numbered list. A new procedure will be added on to the existing numbered list (to the last index).
 
-### Deleting a person : `delete`
+**Example:** <br/>
+Non-GUI Format:
+* `addProc 1 Check router’s connection with the modem`
+  * In the case that the 1st client already has existing procedures, `Check router’s connection with the modem` procedure will appear to be the last procedure in that client’s procedure list.
 
-Deletes the specified person from the address book.
+GUI Format:
+![addProc](images/addProc.png)
 
-Format: `delete INDEX`
+### Delete a Procedure from the client: `deleteProc`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Deletes a procedure associated with the client. This is important as it allows the user to maintain and make changes to the database - creation and deletion.
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+**Format:** `deleteProc <clientIndex> <Proc_Index>`
+A new procedure will be deleted from the existing numbered list.
+* `deleteProc` refers to the command of deleting a procedure from the client at the specified Index.
+* `<Client Index>` refers to the index number shown in the displayed client list. 
+The index must be a positive integer 1, 2, 3, ...
+* `<Procedure>` refers to the tasks or problems that need to be addressed 
+in the future visits to the client’s business sight.
+Note that a client’s list of procedures is a numbered list. 
 
-### Clearing all entries : `clear`
+**Example:**
+Non-GUI format:
+User: deleteProc 1 3
+Terminal returns: The procedure “Bring a new Singtel router to replace the old Apple one” has been successfully deleted! :)
+User: deleteProc 3 500
+Terminal returns: The procedure you listed does not exist, add more procedures.
+User: deleteProc 3
+Terminal returns: Do add in the procedure you would like to delete and try again :).
 
-Clears all entries from the address book.
+GUI Format:
+![deleteProc](images/deleteProc.png)
 
-Format: `clear`
+### View All Clients and Procedures: `list`
 
-### Exiting the program : `exit`
+Lists out all the clients and their respective procedures saved. 
+This feature will be used to show clients on GUI. No arguments required.
+Example: 
+- User: `list`
+- Terminal returns: 
 
-Exits the program.
+Non-GUI Format
+1. Apple, 9XXXXXXX, Apple Road
+    1. Fixed the intranet issue
+    2. Replace router in 3rd floor
+2. Singtel, 8XXXXXXX, Singtel Road
+    1. Cable split
+    2. Reconnected broadband services
 
-Format: `exit`
+GUI Format:
+![list](images/list.png)
 
-### Saving the data
+## Command Summary
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
-</div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
---------------------------------------------------------------------------------------------------------------------
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+| Command | Syntax | Example |
+| --- | --- | --- |
+| Add Client | `addClient n/<NAME> p/<PHONE_NUMBER> a/<ADDRESS>`| `addClient n/Apple Inc p/9XXXXXXX a/apple road` |
+| Delete Client | `deleteClient <INDEX>` | `deleteClient 1` |
+| Add Procedure | `addProc <CLIENT INDEX> <Procedure>` | `addProc 1 Check router’s connection with the modem` |
+| Delete Procedure | `deleteProc <CLIENT INDEX> <PROCEDURE INDEX>` | `deleteProc 1 3` |
+| List All Clients | `list` | `list` |
