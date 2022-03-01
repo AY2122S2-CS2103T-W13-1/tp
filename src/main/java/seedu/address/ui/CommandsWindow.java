@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,19 +8,20 @@ import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
+import java.util.logging.Logger;
+
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
+public class CommandsWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_BRIEF = "\n  Add: Adds an address" + "\n  Edit: Edit an address"
+    public static final String COMMANDS_BRIEF = "\n  Add: Adds an address" + "\n  Edit: Edit an address"
             + "\n  Delete: Delete an address" + "\n  Clear: Clears the address book"
                     + "\n  Find: Find address" + "\n  List: List all addresses"
                             + "\n  Exit: Exit the address book";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL + HELP_BRIEF;
+    public static final String COMMANDS_MESSAGE = COMMANDS_BRIEF;
 
-    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandsWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
@@ -36,15 +35,15 @@ public class HelpWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpWindow(Stage root) {
+    public CommandsWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        helpMessage.setText(COMMANDS_MESSAGE);
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public HelpWindow() {
+    public CommandsWindow() {
         this(new Stage());
     }
 
@@ -91,16 +90,5 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
-    }
-
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
     }
 }

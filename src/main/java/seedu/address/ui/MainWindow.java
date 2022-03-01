@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandsWindow commandsWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -144,6 +145,18 @@ public class MainWindow extends UiPart<Stage> {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleShowCommands() {
+        if (!commandsWindow.isShowing()) {
+            commandsWindow.show();
+        } else {
+            commandsWindow.focus();
         }
     }
 

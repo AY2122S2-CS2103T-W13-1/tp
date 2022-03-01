@@ -5,17 +5,17 @@ import seedu.address.model.Model;
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends Command {
+public class ListCommandsCommand extends Command {
 
-    public static final String COMMAND_WORD = "help";
+    public static final String COMMAND_WORD = "commands";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_COMMANDS_MESSAGE = "Opened commands window.";
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, false, true, false);
+        return new CommandResult(SHOWING_COMMANDS_MESSAGE, true, false, false);
     }
 }
